@@ -1,0 +1,15 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "redirects": [
+    {
+      "source": "/yt",
+      "destination": "https://youtube.com/watch?v=exemplo",
+      "permanent": false
+    },
+    {
+      "source": "/promo",
+      "destination": "https://seusite.com/pagina-longa",
+      "permanent": false
+    }
+  ]
+}
