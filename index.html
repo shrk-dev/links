@@ -1,10 +1,424 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <title>Em construção</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Anônimas Gostosas</title>
+  <meta property="og:title" content="Anônimas Gostosas" />
+  <meta property="og:description" content="Canal exclusivo no Telegram. Entra lá 🔥" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --rose: #e8a0a0;
+      --rose-hot: #ff6b8a;
+      --gold: #c9a96e;
+      --gold-light: #e8d5b0;
+      --bg: #080608;
+      --bg2: #110d10;
+      --text: #f0e8e8;
+      --muted: #8a7a7a;
+    }
+
+    html, body {
+      height: 100%;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      overflow-x: hidden;
+    }
+
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100dvh;
+      padding: 2rem 1.5rem;
+    }
+
+    .bg-orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.18;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .orb1 {
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, #8b0032, transparent 70%);
+      top: -120px; left: -120px;
+      animation: drift1 18s ease-in-out infinite alternate;
+    }
+    .orb2 {
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, #5c0040, transparent 70%);
+      bottom: -100px; right: -80px;
+      animation: drift2 22s ease-in-out infinite alternate;
+    }
+    .orb3 {
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, #c9a96e33, transparent 70%);
+      top: 40%; left: 50%;
+      transform: translate(-50%, -50%);
+      opacity: 0.08;
+    }
+
+    @keyframes drift1 {
+      from { transform: translate(0, 0) scale(1); }
+      to   { transform: translate(60px, 40px) scale(1.1); }
+    }
+    @keyframes drift2 {
+      from { transform: translate(0, 0) scale(1); }
+      to   { transform: translate(-40px, -60px) scale(1.08); }
+    }
+
+    .card {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+    }
+
+    /* AVATAR */
+    .avatar-wrap {
+      position: relative;
+      width: 130px;
+      height: 130px;
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeUp 0.8s cubic-bezier(.22,1,.36,1) 0.1s forwards;
+    }
+
+    .avatar-ring {
+      position: absolute;
+      inset: -4px;
+      border-radius: 50%;
+      background: conic-gradient(
+        from 0deg,
+        var(--gold),
+        var(--rose-hot),
+        var(--gold-light),
+        var(--rose-hot),
+        var(--gold)
+      );
+      animation: spin 6s linear infinite;
+    }
+
+    .avatar-ring-mask {
+      position: absolute;
+      inset: 3px;
+      border-radius: 50%;
+      background: var(--bg);
+    }
+
+    .avatar-img {
+      position: absolute;
+      inset: 5px;
+      border-radius: 50%;
+      object-fit: cover;
+      width: calc(100% - 10px);
+      height: calc(100% - 10px);
+      background: var(--bg2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .avatar-placeholder {
+      position: absolute;
+      inset: 5px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #1a0f14 0%, #2d1520 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .avatar-placeholder svg {
+      width: 52px;
+      height: 52px;
+      opacity: 0.35;
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+
+    /* NOME */
+    .name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      line-height: 1.1;
+      color: var(--text);
+      margin-bottom: 0.3rem;
+      opacity: 0;
+      animation: fadeUp 0.8s cubic-bezier(.22,1,.36,1) 0.25s forwards;
+    }
+
+    .name span {
+      background: linear-gradient(90deg, var(--gold), var(--rose), var(--gold-light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* HANDLE */
+    .handle {
+      font-size: 0.8rem;
+      font-weight: 300;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1.4rem;
+      opacity: 0;
+      animation: fadeUp 0.8s cubic-bezier(.22,1,.36,1) 0.35s forwards;
+    }
+
+    /* DIVIDER */
+    .divider {
+      width: 48px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin-bottom: 1.4rem;
+      opacity: 0;
+      animation: fadeUp 0.8s cubic-bezier(.22,1,.36,1) 0.4s forwards;
+    }
+
+    /* BIO */
+    .bio {
+      font-size: 0.92rem;
+      font-weight: 300;
+      line-height: 1.75;
+      color: #b09898;
+      max-width: 320px;
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: fadeUp 0.8s cubic-bezier(.22,1,.36,1) 0.5s forwards;
+    }
+
+    /* STATS PILL */
+    .stats {
+      display: flex;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: fadeUp 0.8s cubic-bezier(.22,1,.36,1) 0.58s forwards;
+    }
+
+    .stat {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+    }
+
+    .stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: var(--gold-light);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .stat-sep {
+      width: 1px;
+      height: 32px;
+      background: linear-gradient(to bottom, transparent, #3a2a2a, transparent);
+      align-self: center;
+    }
+
+    /* CTA BUTTON */
+    .cta-wrap {
+      width: 100%;
+      opacity: 0;
+      animation: fadeUp 0.8s cubic-bezier(.22,1,.36,1) 0.68s forwards;
+    }
+
+    .cta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      padding: 1rem 1.5rem;
+      border-radius: 100px;
+      background: linear-gradient(135deg, #8b0032, #c0174a, #8b0032);
+      background-size: 200% auto;
+      border: none;
+      color: #fff;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-position 0.4s ease, transform 0.15s ease, box-shadow 0.3s ease;
+      box-shadow: 0 4px 30px -4px rgba(192, 23, 74, 0.4);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 100px;
+      background: linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.08) 60%, transparent);
+      pointer-events: none;
+    }
+
+    .cta:hover {
+      background-position: right center;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 40px -4px rgba(192, 23, 74, 0.55);
+    }
+
+    .cta:active {
+      transform: translateY(0px) scale(0.98);
+    }
+
+    .cta svg {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+    }
+
+    /* SECONDARY */
+    .secondary-note {
+      margin-top: 1.2rem;
+      font-size: 0.75rem;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+      opacity: 0;
+      animation: fadeUp 0.8s cubic-bezier(.22,1,.36,1) 0.78s forwards;
+    }
+
+    .secondary-note span {
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #2ecc71;
+      margin-right: 5px;
+      vertical-align: middle;
+      animation: pulse-green 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse-green {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.8); }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* FOOTER */
+    .footer {
+      position: fixed;
+      bottom: 1.2rem;
+      left: 0; right: 0;
+      text-align: center;
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #3a2a2a;
+      z-index: 1;
+    }
+  </style>
 </head>
 <body>
-  <h1>Em breve</h1>
+
+  <div class="bg-orb orb1"></div>
+  <div class="bg-orb orb2"></div>
+  <div class="bg-orb orb3"></div>
+
+  <div class="card">
+
+    <!-- AVATAR -->
+    <div class="avatar-wrap">
+      <div class="avatar-ring"></div>
+      <div class="avatar-ring-mask"></div>
+      <!-- Troque por <img> quando tiver a foto:
+           <img class="avatar-img" src="sua-foto.jpg" alt="Foto de perfil" />
+      -->
+      <div class="avatar-placeholder">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 12C14.7614 12 17 9.76142 17 7C17 4.23858 14.7614 2 12 2C9.23858 2 7 4.23858 7 7C7 9.76142 9.23858 12 12 12Z" fill="#c9a96e"/>
+          <path d="M12 14C7.58172 14 4 17.5817 4 22H20C20 17.5817 16.4183 14 12 14Z" fill="#c9a96e"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- NOME -->
+    <h1 class="name"><span>Anônimas Gostosas</span></h1>
+    <p class="handle">@anonimas_gostosas</p>
+
+    <div class="divider"></div>
+
+    <!-- BIO -->
+    <p class="bio">
+      Conteúdo exclusivo, novidades toda semana.<br/>
+      Entra no canal e descobre o que tá rolando. 🔥
+    </p>
+
+    <!-- STATS -->
+    <div class="stats">
+      <div class="stat">
+        <span class="stat-num">100%</span>
+        <span class="stat-label">Gratuito</span>
+      </div>
+      <div class="stat-sep"></div>
+      <div class="stat">
+        <span class="stat-num">Diário</span>
+        <span class="stat-label">Atualiza</span>
+      </div>
+      <div class="stat-sep"></div>
+      <div class="stat">
+        <span class="stat-num">+18</span>
+        <span class="stat-label">Conteúdo</span>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-wrap">
+      <a class="cta" href="https://t.me/anonimas_gostosas" target="_blank" rel="noopener">
+        <!-- Ícone do Telegram -->
+        <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+        </svg>
+        Entrar no Canal
+      </a>
+    </div>
+
+    <p class="secondary-note">
+      <span></span>Canal ativo agora
+    </p>
+
+  </div>
+
+  <p class="footer">conteúdo adulto · +18</p>
+
 </body>
 </html>
