@@ -510,6 +510,8 @@
     /* IDIOMA */
     const isPt = (navigator.language || navigator.userLanguage).toLowerCase().startsWith('pt');
     if (!isPt) {
+      document.title = 'Anonymous Hotties';
+      document.querySelector('.name span').textContent = 'Anonymous Hotties';
       document.querySelector('.bio').innerHTML = 'Exclusive content, the best leaks.<br/>and the hottest girls on the internet are here. 🔥';
       document.querySelector('.stars-label').textContent = 'best channel';
       const statNums = document.querySelectorAll('.stat-num');
