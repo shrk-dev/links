@@ -39,6 +39,13 @@
       padding: 2rem 1.5rem;
     }
 
+    #particles {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
     .bg-orb {
       position: fixed;
       border-radius: 50%;
@@ -68,14 +75,15 @@
     }
 
     @keyframes drift1 {
-      from { transform: translate(0, 0) scale(1); }
-      to   { transform: translate(60px, 40px) scale(1.1); }
+      from { transform: translate(0,0) scale(1); }
+      to   { transform: translate(60px,40px) scale(1.1); }
     }
     @keyframes drift2 {
-      from { transform: translate(0, 0) scale(1); }
-      to   { transform: translate(-40px, -60px) scale(1.08); }
+      from { transform: translate(0,0) scale(1); }
+      to   { transform: translate(-40px,-60px) scale(1.08); }
     }
 
+    /* CARD — glassmorphism */
     .card {
       position: relative;
       z-index: 1;
@@ -85,14 +93,20 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 0;
+      background: rgba(255,255,255,0.035);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 28px;
+      padding: 2.5rem 2rem 2rem;
+      box-shadow: 0 8px 60px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.08);
     }
 
     /* AVATAR */
     .avatar-wrap {
       position: relative;
-      width: 130px;
-      height: 130px;
+      width: 120px;
+      height: 120px;
       margin-bottom: 1.5rem;
       opacity: 0;
       animation: fadeUp 0.8s cubic-bezier(.22,1,.36,1) 0.1s forwards;
@@ -100,54 +114,32 @@
 
     .avatar-ring {
       position: absolute;
-      inset: -4px;
+      inset: -2px;
       border-radius: 50%;
-      background: conic-gradient(
-        from 0deg,
-        var(--gold),
-        var(--rose-hot),
-        var(--gold-light),
-        var(--rose-hot),
-        var(--gold)
-      );
+      background: conic-gradient(from 0deg, var(--gold), var(--rose-hot), var(--gold-light), var(--rose-hot), var(--gold));
       animation: spin 6s linear infinite;
     }
 
     .avatar-ring-mask {
       position: absolute;
-      inset: 3px;
+      inset: 1px;
       border-radius: 50%;
       background: var(--bg);
     }
 
     .avatar-img {
       position: absolute;
-      inset: 5px;
+      inset: 3px;
       border-radius: 50%;
       object-fit: cover;
-      width: calc(100% - 10px);
-      height: calc(100% - 10px);
-      background: var(--bg2);
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      width: calc(100% - 6px);
+      height: calc(100% - 6px);
       overflow: hidden;
+      transition: transform 0.4s cubic-bezier(.22,1,.36,1);
     }
 
-    .avatar-placeholder {
-      position: absolute;
-      inset: 5px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #1a0f14 0%, #2d1520 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .avatar-placeholder svg {
-      width: 52px;
-      height: 52px;
-      opacity: 0.35;
+    .avatar-wrap:hover .avatar-img {
+      transform: scale(1.07);
     }
 
     @keyframes spin {
@@ -155,7 +147,6 @@
       to   { transform: rotate(360deg); }
     }
 
-    /* NOME */
     .name {
       font-family: 'Cormorant Garamond', serif;
       font-size: 2rem;
@@ -175,7 +166,6 @@
       background-clip: text;
     }
 
-    /* HANDLE */
     .handle {
       font-size: 0.8rem;
       font-weight: 300;
@@ -187,7 +177,6 @@
       animation: fadeUp 0.8s cubic-bezier(.22,1,.36,1) 0.35s forwards;
     }
 
-    /* DIVIDER */
     .divider {
       width: 48px;
       height: 1px;
@@ -197,25 +186,49 @@
       animation: fadeUp 0.8s cubic-bezier(.22,1,.36,1) 0.4s forwards;
     }
 
-    /* BIO */
     .bio {
       font-size: 0.92rem;
       font-weight: 300;
       line-height: 1.75;
       color: #b09898;
       max-width: 320px;
-      margin-bottom: 2rem;
+      margin-bottom: 1.4rem;
       opacity: 0;
       animation: fadeUp 0.8s cubic-bezier(.22,1,.36,1) 0.5s forwards;
     }
 
-    /* STATS PILL */
+    /* ESTRELAS */
+    .stars-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      margin-bottom: 1.6rem;
+      opacity: 0;
+      animation: fadeUp 0.8s cubic-bezier(.22,1,.36,1) 0.55s forwards;
+    }
+
+    .stars { display: flex; gap: 3px; }
+
+    .star {
+      font-size: 0.95rem;
+      color: var(--gold);
+      filter: drop-shadow(0 0 4px rgba(201,169,110,0.6));
+    }
+
+    .stars-label {
+      font-size: 0.72rem;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+    }
+
+    /* STATS */
     .stats {
       display: flex;
       gap: 1.5rem;
       margin-bottom: 2rem;
       opacity: 0;
-      animation: fadeUp 0.8s cubic-bezier(.22,1,.36,1) 0.58s forwards;
+      animation: fadeUp 0.8s cubic-bezier(.22,1,.36,1) 0.6s forwards;
     }
 
     .stat {
@@ -247,7 +260,7 @@
       align-self: center;
     }
 
-    /* CTA BUTTON */
+    /* CTA */
     .cta-wrap {
       width: 100%;
       opacity: 0;
@@ -262,7 +275,7 @@
       width: 100%;
       padding: 1rem 1.5rem;
       border-radius: 100px;
-      background: linear-gradient(135deg, #8b0032, #c0174a, #8b0032);
+      background: linear-gradient(135deg, #8b0032 0%, #c0174a 50%, #8b0032 100%);
       background-size: 200% auto;
       border: none;
       color: #fff;
@@ -273,9 +286,27 @@
       cursor: pointer;
       text-decoration: none;
       transition: background-position 0.4s ease, transform 0.15s ease, box-shadow 0.3s ease;
-      box-shadow: 0 4px 30px -4px rgba(192, 23, 74, 0.4);
+      box-shadow: 0 4px 30px -4px rgba(192,23,74,0.4);
       position: relative;
       overflow: hidden;
+    }
+
+    /* shimmer */
+    .cta::after {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 60%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent);
+      transform: skewX(-15deg);
+      animation: shimmer 3.5s ease-in-out infinite;
+    }
+
+    @keyframes shimmer {
+      0%   { left: -100%; }
+      40%  { left: 140%; }
+      100% { left: 140%; }
     }
 
     .cta::before {
@@ -283,27 +314,20 @@
       position: absolute;
       inset: 0;
       border-radius: 100px;
-      background: linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.08) 60%, transparent);
+      background: linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.06) 60%, transparent);
       pointer-events: none;
     }
 
     .cta:hover {
       background-position: right center;
       transform: translateY(-2px);
-      box-shadow: 0 8px 40px -4px rgba(192, 23, 74, 0.55);
+      box-shadow: 0 8px 40px -4px rgba(192,23,74,0.55);
     }
 
-    .cta:active {
-      transform: translateY(0px) scale(0.98);
-    }
+    .cta:active { transform: translateY(0) scale(0.98); }
 
-    .cta svg {
-      width: 20px;
-      height: 20px;
-      flex-shrink: 0;
-    }
+    .cta svg { width: 20px; height: 20px; flex-shrink: 0; }
 
-    /* SECONDARY */
     .secondary-note {
       margin-top: 1.2rem;
       font-size: 0.75rem;
@@ -315,8 +339,7 @@
 
     .secondary-note span {
       display: inline-block;
-      width: 6px;
-      height: 6px;
+      width: 6px; height: 6px;
       border-radius: 50%;
       background: #2ecc71;
       margin-right: 5px;
@@ -326,7 +349,7 @@
 
     @keyframes pulse-green {
       0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.5; transform: scale(0.8); }
+      50%       { opacity: 0.5; transform: scale(0.8); }
     }
 
     @keyframes fadeUp {
@@ -334,7 +357,6 @@
       to   { opacity: 1; transform: translateY(0); }
     }
 
-    /* FOOTER */
     .footer {
       position: fixed;
       bottom: 1.2rem;
@@ -346,36 +368,102 @@
       color: #3a2a2a;
       z-index: 1;
     }
+
+    /* TOAST */
+    .toast {
+      position: fixed;
+      bottom: 2.5rem;
+      left: 1.5rem;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(20,10,15,0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px;
+      padding: 10px 14px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.5);
+      transform: translateY(20px);
+      opacity: 0;
+      transition: transform 0.4s cubic-bezier(.22,1,.36,1), opacity 0.4s ease;
+      pointer-events: none;
+      max-width: 240px;
+    }
+
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .toast-avatar {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #8b0032, #c0174a);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: #fff;
+      flex-shrink: 0;
+    }
+
+    .toast-text {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+
+    .toast-name {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    .toast-action {
+      font-size: 0.72rem;
+      color: var(--muted);
+    }
   </style>
 </head>
 <body>
 
+  <canvas id="particles"></canvas>
   <div class="bg-orb orb1"></div>
   <div class="bg-orb orb2"></div>
   <div class="bg-orb orb3"></div>
 
   <div class="card">
 
-    <!-- AVATAR -->
     <div class="avatar-wrap">
       <div class="avatar-ring"></div>
       <div class="avatar-ring-mask"></div>
-           <img class="avatar-img" src="pfp.png" alt="" />
+      <img class="avatar-img" src="pfp.png" alt="" />
     </div>
 
-    <!-- NOME -->
     <h1 class="name"><span>Anônimas Gostosas</span></h1>
     <p class="handle">@anonimas_gostosas</p>
 
     <div class="divider"></div>
 
-    <!-- BIO -->
     <p class="bio">
-      Conteúdo exclusivo, os melhores vazamentos<br/>
-      e as mais gostosas da internet estão aqui. 🔥
+      Conteúdo exclusivo, os melhores vazamentos.<br/>
+      e as melhores gostosas da internet estão aqui. 🔥
     </p>
 
-    <!-- STATS -->
+    <div class="stars-wrap">
+      <div class="stars">
+        <span class="star">★</span>
+        <span class="star">★</span>
+        <span class="star">★</span>
+        <span class="star">★</span>
+        <span class="star">★</span>
+      </div>
+      <span class="stars-label">melhor canal do Brasil</span>
+    </div>
+
     <div class="stats">
       <div class="stat">
         <span class="stat-num">100%</span>
@@ -393,11 +481,9 @@
       </div>
     </div>
 
-    <!-- CTA -->
     <div class="cta-wrap">
       <a class="cta" href="https://t.me/anonimas_gostosas" target="_blank" rel="noopener">
-        <!-- Ícone do Telegram -->
-        <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <svg viewBox="0 0 24 24" fill="currentColor">
           <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
         </svg>
         Entrar no Canal
@@ -411,6 +497,77 @@
   </div>
 
   <p class="footer">conteúdo adulto · +18</p>
+
+  <div class="toast" id="toast">
+    <div class="toast-avatar" id="toast-avatar"></div>
+    <div class="toast-text">
+      <span class="toast-name" id="toast-name"></span>
+      <span class="toast-action">acabou de entrar no canal</span>
+    </div>
+  </div>
+
+  <script>
+    /* PARTÍCULAS */
+    const canvas = document.getElementById('particles');
+    const ctx = canvas.getContext('2d');
+    let W, H;
+
+    function resize() {
+      W = canvas.width  = window.innerWidth;
+      H = canvas.height = window.innerHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    function rand(a, b) { return a + Math.random() * (b - a); }
+
+    const particles = Array.from({ length: 55 }, () => ({
+      x: rand(0, window.innerWidth),
+      y: rand(0, window.innerHeight),
+      r: rand(0.6, 1.8),
+      vx: rand(-0.12, 0.12),
+      vy: rand(-0.2, -0.04),
+      alpha: rand(0.2, 0.7),
+      color: Math.random() > 0.5 ? '201,169,110' : '255,107,138'
+    }));
+
+    (function loop() {
+      ctx.clearRect(0, 0, W, H);
+      for (const p of particles) {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${p.color},${p.alpha})`;
+        ctx.fill();
+        p.x += p.vx;
+        p.y += p.vy;
+        if (p.y < -4)    { p.y = H + 4; p.x = rand(0, W); }
+        if (p.x < -4)      p.x = W + 4;
+        if (p.x > W + 4)   p.x = -4;
+      }
+      requestAnimationFrame(loop);
+    })();
+
+    /* TOAST */
+    const nomes = [
+      'Lucas','Gabriel','Mateus','Felipe','Rafael',
+      'Bruno','Diego','Thiago','André','Carlos',
+      'Pedro','João','Gustavo','Rodrigo','Alexandre',
+      'Vinícius','Renato','Eduardo','Marcelo','Daniel'
+    ];
+
+    function showToast() {
+      const toast    = document.getElementById('toast');
+      const nameEl   = document.getElementById('toast-name');
+      const avatarEl = document.getElementById('toast-avatar');
+      const nome     = nomes[Math.floor(Math.random() * nomes.length)];
+      nameEl.textContent   = nome;
+      avatarEl.textContent = nome.slice(0, 2).toUpperCase();
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 3200);
+    }
+
+    setTimeout(() => { showToast(); setInterval(showToast, 12000); }, 4000);
+  </script>
 
 </body>
 </html>
